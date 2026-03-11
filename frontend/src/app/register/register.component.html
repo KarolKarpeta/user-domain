@@ -1,0 +1,47 @@
+<section class="register-form">
+  <h2>Rejestracja</h2>
+  <form
+    (submit)="onSubmit(email.value, firstName.value, password.value); $event.preventDefault()"
+  >
+    <div class="field">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        #email
+        type="email"
+        required
+        placeholder="twój@adres.pl"
+      />
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="firstName">Imię</label>
+      <input id="firstName" #firstName type="text" required placeholder="Jan" />
+    </div>
+
+    <div class="field">
+      <label for="password">Hasło</label>
+      <input id="password" #password type="password" required placeholder="••••••••" />
+    </div>
+
+    <button type="submit" class="btn-primary">
+      @if (loading()) {
+        <div class="spinner" aria-hidden="true"></div>
+        <span class="loading-text">Ładowanie...</span>
+      } @else {
+        <p>Zarejestruj</p>
+      }
+    </button>
+  </form>
+
+  @if (registered()) {
+    <div class="registered-info">
+      <h3>Zarejestrowany użytkownik</h3>
+      <p><strong>Imię:</strong> {{ registeredUser()?.name }}</p>
+      <p><strong>Email:</strong> {{ registeredUser()?.email }}</p>
+    </div>
+  }
+</section>

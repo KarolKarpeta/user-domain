@@ -1,0 +1,50 @@
+<section class="login-form">
+  <h2>Logowanie</h2>
+  <form (submit)="login(email.value, password.value); $event.preventDefault()">
+    <div class="field">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        #email
+        type="email"
+        required
+        placeholder="twój@adres.pl"
+      />
+    </div>
+
+    <div class="field">
+      <label for="password">Hasło</label>
+      <input
+        id="password"
+        #password
+        type="password"
+        required
+        placeholder="Hasło"
+      />
+    </div>
+
+    <p class="error" [hidden]="!errorMessage()">{{ errorMessage() }}</p>
+
+    <button type="submit" class="btn-primary">
+      @if (loading()) {
+        <div class="spinner" aria-hidden="true"></div>
+        <span class="loading-text">Ładowanie...</span>
+      } @else {
+        <p>Zaloguj</p>
+      }
+    </button>
+  </form>
+
+  @if (loggedIn()) {
+    <div class="login-info">
+      <h3>Zalogowany użytkownik</h3>
+      <p>
+        <strong>Imię:</strong> {{ loginResponse()?.userLoginResponse?.name }}
+      </p>
+      <p>
+        <strong>Email:</strong> {{ loginResponse()?.userLoginResponse?.email }}
+      </p>
+      <button class="btn-secondary" (click)="logout()">Wyloguj</button>
+    </div>
+  }
+</section>
